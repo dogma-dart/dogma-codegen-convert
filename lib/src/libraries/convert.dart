@@ -13,7 +13,15 @@ import 'package:dogma_source_analyzer/metadata.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-/// Metadata for the dogma_convert.convert libraries.
+/// Metadata for the dart:convert library.
+final LibraryMetadata dartConvertLibrary =
+    new LibraryMetadata(Uri.parse('dart:convert'));
+
+/// Import for the dart:convert library.
+UriReferencedMetadata dartConvertReference() =>
+    new UriReferencedMetadata.withLibrary(dartConvertLibrary);
+
+/// Metadata for the dogma_convert.convert library.
 final LibraryMetadata dogmaConvertLibrary =
     new LibraryMetadata(Uri.parse('package:dogma_convert/convert.dart'));
 
