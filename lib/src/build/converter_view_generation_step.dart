@@ -139,7 +139,7 @@ class ConverterViewGenerationStep implements ViewGenerationStep {
     var methods = <MethodMetadata>[
       new MethodMetadata(
           convertMethodName,
-          metadataType,
+          new TypeMetadata.map(),
           parameters: <ParameterMetadata>[
             new ParameterMetadata('input', metadataType),
           ],
