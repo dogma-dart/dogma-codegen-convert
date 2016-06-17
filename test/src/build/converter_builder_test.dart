@@ -12,8 +12,6 @@ import 'package:dogma_codegen_model/build.dart';
 import 'package:dogma_codegen_test/build.dart';
 import 'package:dogma_codegen_test/convert.dart' as convert;
 import 'package:dogma_codegen_test/model.dart' as model;
-import 'package:dogma_source_analyzer/metadata.dart';
-import 'package:logging/logging.dart';
 import 'package:test/test.dart';
 
 import 'package:dogma_codegen_convert/build.dart';
@@ -22,30 +20,33 @@ import 'package:dogma_codegen_convert/build.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-class _ConverterBuilder extends SourceBuilder
-                           with PredefinedMetadataStep,
-                                ModelViewStep,
-                                ConverterViewGenerationStep,
-                                ConverterCodegenStep {
-  @override
-  final LibraryMetadata library;
-
-  _ConverterBuilder(String package, String libraryOutput, this.library)
-      : super(package, libraryOutput, null);
-}
-
 void main() {
-  test('ModelImplicit libraries', () async {
-    var builder = new _ConverterBuilder(
-        'dogma_codegen_convert',
-        'test/lib/src/convert',
-        model.modelImplicitLibrary()
-    );
+  test('Convert libraries', () async {
+    var modelConfig = new BuilderConfig<TargetConfig>()
+        ..libraryOutput = 'test/lib/src/model';
+    var modelRootConfig = new RootLibraryBuilderConfig()
+        ..libraryPath = 'test/lib/model.dart'
+        ..sourceDirectory = 'test/lib/src/model';
+    var converterConfig = new BuilderConfig<ConverterTargetConfig>()
+        ..libraryOutput = 'test/lib/src/convert';
 
-    await testBuilder(
-        builder,
-        model.modelImplicitLibrary(),
-        convert.modelImplicitLibrary()
-    );
+    var predefined = [
+      new PredefinedModelBuilder(modelConfig, model.modelImplicitLibrary()),
+      new PredefinedModelBuilder(modelConfig, model.modelExplicitLibrary()),
+      new PredefinedModelBuilder(modelConfig, model.modelOptionalLibrary()),
+      new PredefinedModelBuilder(modelConfig, model.modelRecursiveLibrary())
+    ];
+
+    var pipeline = [
+      new RootLibraryBuilder(modelRootConfig),
+      new ConverterBuilder(converterConfig)
+    ];
+
+    var outputs = [
+      convert.modelImplicitLibrary(),
+      convert.modelExplicitLibrary()
+    ];
+
+    await testWithPredefinedMetadata(predefined, pipeline, outputs);
   });
 }
