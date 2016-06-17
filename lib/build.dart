@@ -9,4 +9,5 @@
 
 export 'src/build/converter_builder.dart';
 export 'src/build/converter_codegen_step.dart';
+export 'src/build/converter_target_config.dart';
 export 'src/build/converter_view_generation_step.dart';
