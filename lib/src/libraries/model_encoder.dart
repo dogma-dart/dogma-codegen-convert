@@ -19,7 +19,8 @@ const String modelEncoderClassName = 'ModelEncoder';
 /// A generic model encoder type.
 ///
 /// The type arguments are not specified which will allow equality matching.
-final genericModelEncoderType = new TypeMetadata(modelEncoderClassName);
+final TypeMetadata genericModelEncoderType =
+    new TypeMetadata(modelEncoderClassName);
 
 /// Creates type metadata for a ModelEncoder using the [model]'s type.
 TypeMetadata modelEncoderType(TypeMetadata model) =>

@@ -24,7 +24,7 @@ const String createMethodName = 'create';
 /// A generic model decoder type.
 ///
 /// The type arguments are not specified which will allow equality matching.
-final genericModelDecoderType = new TypeMetadata(modelDecoderClassName);
+final TypeMetadata genericModelDecoderType = new TypeMetadata(modelDecoderClassName);
 
 /// Creates type metadata for a ModelDecoder using the [model]'s type.
 TypeMetadata modelDecoderType(TypeMetadata model) =>

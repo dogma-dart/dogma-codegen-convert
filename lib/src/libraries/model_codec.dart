@@ -19,7 +19,8 @@ const String modelCodecClassName = 'ModelCodec';
 /// A generic model codec type.
 ///
 /// The type arguments are not specified which will allow equality matching.
-final genericModelCodecType = new TypeMetadata(modelCodecClassName);
+final TypeMetadata genericModelCodecType =
+    new TypeMetadata(modelCodecClassName);
 
 /// Creates type metadata for a ModelCodec using the [model]'s type.
 TypeMetadata modelCodecType(TypeMetadata model) =>
