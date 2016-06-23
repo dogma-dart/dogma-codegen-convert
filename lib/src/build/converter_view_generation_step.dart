@@ -21,7 +21,8 @@ import '../../libraries.dart';
 // Library contents
 //---------------------------------------------------------------------
 
-class ConverterViewGenerationStep implements ViewGenerationStep {
+abstract class ConverterViewGenerationStep<T extends TargetConfig> implements ViewGenerationStep,
+                                                                              AssetOutput<T> {
   //---------------------------------------------------------------------
   // ViewGenerationStep
   //---------------------------------------------------------------------
@@ -40,9 +41,11 @@ class ConverterViewGenerationStep implements ViewGenerationStep {
           ..add(_generateModelCodec(model));
     }
 
+    var path = p.relative(source.metadata.uri);
+
     // Create the libraries
     var library = new LibraryMetadata(
-        p.join('test/lib/src/convert/test_convert.dart'),
+        p.join(assetPath(path)),
         classes: classes,
         imports: [
           dartConvertReference(),
